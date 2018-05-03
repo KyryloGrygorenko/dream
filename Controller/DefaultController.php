@@ -69,7 +69,11 @@ class DefaultController extends Controller
             $role = $request->post('role');
             $repository = $this->get('repository')->getRepository('User');
             $repository->add($name,$email,$password,$role);
+            Session::setFlash('Нового користувача ' .$name. ' успiшно додано');
+
             $this->get('router')->redirect('/users');
+        }else{
+            Session::setFlash('Помилка. Коричтувача не було додано');
         };
 
         return $this->get('router')->redirect('/users');
@@ -91,9 +95,12 @@ class DefaultController extends Controller
                 $password = new Password();
                 $repository->updatePassword($user_id,$password);
             }
+            Session::setFlash('Iнформацiю користувача ' .$name. ' оновлено');
+        }else{
+            Session::setFlash('Помилка. Iнформацiю користувача не було змiнено. Ну було надicлано данних користувача.');
         };
-
         return $this->get('router')->redirect('/users');
+
     }
 
     public function deleteAction(Request $request)

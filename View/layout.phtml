@@ -62,13 +62,22 @@
             </div>
         </nav>
 
-        <div class="container" style="text-align: center">
-                <div class="container mt-2">
-                    <?=\Library\Session::getFlash()?>
+        <div class="container mt-2 text-center">
+            <?php if($flash_message = \Library\Session::getFlash() ):?>
+                <div id="flash_message" class="alert alert-info fixed-bottom text-center">
+                    <?=$flash_message?>
                 </div>
-                <?=$content ?>
+            <?php endif;?>
+            <?=$content ?>
         </div>
     </body>
+    <script>
+        $(document).ready(function(){
+            setTimeout(function(){
+                $('#flash_message').fadeOut();
+            },4000);
+        });
+    </script>
 </html>
 
 
